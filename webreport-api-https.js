@@ -4,7 +4,7 @@ const AuthBearer = require('hapi-auth-bearer-token');
 let fs = require('fs');
 let cors = require('cors');
 
-//const OnlineAgent = require('./respository/OnlineAgent');
+const OnlineAgent = require('./repository/OnlineAgent');    
 
 //-------------------------------------
 
@@ -110,7 +110,78 @@ const init = async () => {
             }
         }
     });
+    server.route({
+        method: 'GET',
+        path: '/api/v1/getOnlineAgentByAgentCode',
+        config: {
+            cors: {
+                origin: [
+                    '*'
+                ],
+                headers: ["Access-Control-Allow-Headers", "Access-Control-Allow-Origin", "Accept", "Authorization", "Content-Type", "If-None-Match", "Accept-language"],
+                additionalHeaders: ["Access-Control-Allow-Headers: Origin, Content-Type, x-ms-request-id , Authorization"],
+                credentials: true
+            }
+        },
+        handler: async (request, h) => {
+            let param = request.query;
+            try {
 
+                const responsedata = await OnlineAgent.OnlineAgentRepo.getOnlineAgentByAgentCode(`${param.agentcode}`);
+
+
+                return responsedata;
+
+                //return 'api/v1/getOnlineAgentByAgentCode API.'
+
+            } catch (err) {
+                console.dir(err)
+            }
+        }
+
+    });
+
+    server.route({
+        method: 'POST',
+        path: '/api/v1/postOnlineAgentStatus',
+        config: {
+            cors: {
+                origin: [
+                    '*'
+                ],
+                headers: ["Access-Control-Allow-Headers", "Access-Control-Allow-Origin", "Accept", "Authorization", "Content-Type", "If-None-Match", "Accept-language"],
+                additionalHeaders: ["Access-Control-Allow-Headers: Origin, Content-Type, x-ms-request-id , Authorization"],
+                credentials: true
+            },
+            payload: {
+                parse: true,
+                allow: ['application/json', 'multipart/form-data'],
+                multipart: true  // <== this is important in hapi 19
+            }
+        },
+        handler: async (request, h) => {
+            let param = request.payload;
+
+            const AgentCode = param.AgentCode;
+            const AgentName = param.AgentName;
+            const IsLogin = param.IsLogin;
+            const AgentStatus = param.AgentStatus;
+
+            try {
+
+                const responsedata = await OnlineAgent.OnlineAgentRepo.postOnlineAgentStatus(AgentCode, AgentName, IsLogin, AgentStatus);
+                
+                return responsedata;
+
+                //return 'api/v1/getOnlineAgentByAgentCode API.'
+
+            } catch (err) {
+                console.dir(err)
+            }
+
+        }
+
+    });
     //-------- Code continue here -------------------
     //
     //
