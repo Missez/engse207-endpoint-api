@@ -15,10 +15,10 @@ var dbconfig = {
         }
     },
     production: {
-        server: '192.168.1.15',
+        server: '10.21.43.203',
         database:'team3_web_labDB',
         user:'sa',
-        password:'Missez_1234',
+        password:'P@ssw0rd',
         port: 1433,
         options:{
             encript: true,
@@ -26,7 +26,7 @@ var dbconfig = {
             enableArithAbort: true,
             trustServerCertificate: true,
             trustedconnection:  true,
-            instancename:  '192.168.1.15'  // SQL Server instance name
+            instancename:  '10.21.43.203'  // SQL Server instance name
         }
     },
 
