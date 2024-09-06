@@ -5,19 +5,19 @@ let fs = require('fs');
 let cors = require('cors');
 
 const OnlineAgent = require('./repository/OnlineAgent');
-const apiconfig = require('./apiconfig.js')['development'];
+const apiconfig = require('./apiconfig.js')['production'];
 //-------------------------------------
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "1";
 
-const apiport = 8433
+const apiport = 8300
 
 var url = require('url');
 
 //---------------- Websocket Part1 Start -----------------------
 
 var webSocketServer = new (require('ws')).Server({
-    port: (process.env.PORT || 3071)
+    port: (process.env.PORT || 8301)
 }),
     clientWebSockets = {} // userID: webSocket
 CLIENTS = [];
