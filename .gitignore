@@ -5,3 +5,7 @@ server.key
 .DS_Store
 npm-debug.log
 .idea
+dockerfile
+docker-compose.yml
+.dockerignore
+serverkey
